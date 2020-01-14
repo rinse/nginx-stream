@@ -1,0 +1,20 @@
+# Sample usage
+#
+# forwards packets from nginx-proxy:80 to sample-server:80
+# ngix.conf.sample defines a reverse proxy config for nginx-stream.
+
+version: '3.7'
+
+services:
+  sample-server:
+    image: nginx:1.16.1-alpine
+    container_name: sample-server
+
+  nginx-stream:
+    image: nginx-stream:1.16.1
+    build: .
+    container_name: nginx-stream
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/usr/local/nginx/conf/nginx.conf:ro
